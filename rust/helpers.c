@@ -29,6 +29,7 @@
 #include <linux/gfp.h>
 #include <linux/highmem.h>
 #include <linux/mutex.h>
+#include <linux/rcupdate.h>
 #include <linux/refcount.h>
 #include <linux/sched/signal.h>
 #include <linux/slab.h>
@@ -199,6 +200,20 @@ rust_helper_krealloc(const void *objp, size_t new_size, gfp_t flags)
 	return krealloc(objp, new_size, flags);
 }
 EXPORT_SYMBOL_GPL(rust_helper_krealloc);
+
+/* rcu */
+void rust_helper_rcu_read_lock(void)
+{
+	rcu_read_lock();
+}
+EXPORT_SYMBOL_GPL(rust_helper_rcu_read_lock);
+
+void rust_helper_rcu_read_unlock(void)
+{
+	rcu_read_unlock();
+}
+EXPORT_SYMBOL_GPL(rust_helper_rcu_read_unlock);
+/* end rcu */
 
 /*
  * `bindgen` binds the C `size_t` type as the Rust `usize` type, so we can

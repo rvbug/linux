@@ -35,6 +35,7 @@ extern crate self as kernel;
 #[cfg(not(testlib))]
 mod allocator;
 mod build_assert;
+mod cache_aligned;
 pub mod error;
 pub mod folio;
 pub mod hrtimer;
@@ -61,6 +62,7 @@ pub mod xarray;
 
 #[doc(hidden)]
 pub use bindings;
+pub use cache_aligned::CacheAligned;
 pub use macros;
 pub use uapi;
 
